@@ -1,0 +1,25 @@
+.loaderContainer
+  display: block
+  text-align: center
+  padding: 20px 0
+
+@keyframes loaderDualRing
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
+
+.loaderDualRing
+  display: inline-block
+  width: 30px
+  height: 30px
+
+.loaderDualRing:after
+  content: " "
+  display: block
+  width: 30px
+  height: 30px
+  border-radius: 50%
+  border: 3px solid #c4c4c4
+  border-color: #c4c4c4 transparent #c4c4c4 transparent
+  animation: loaderDualRing 1.2s linear infinite

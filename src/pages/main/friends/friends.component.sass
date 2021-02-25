@@ -1,0 +1,44 @@
+@import '../../../styles'
+
+#FriendsPage
+  height: 100vh
+  width: calc(100vw - 70px)
+  display: flex
+
+  .friendShipPart
+    height: inherit
+    width: 33.3333%
+    box-sizing: border-box
+    padding: 0
+
+    h3
+      color: #c4c4c4
+      padding: 0
+      margin: 0
+      height: 60px
+      line-height: 60px
+      font:
+        size: 24px
+        weight: normal
+      text:
+        align: center
+
+    &.input
+      background-color: #444444
+
+    &.your
+      background-color: #494949
+
+    &.output
+      background-color: #444444
+
+      .friendShipList
+        height: calc(100vh - 320px) !important
+
+    .friendShipList
+      height: calc(100vh - 120px)
+      padding: 10px 20px
+      box-sizing: border-box
+      overflow-x: hidden !important
+      overflow-y: scroll !important
+      @include scrollbars(#292929, 6px, 6px)

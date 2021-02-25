@@ -1,0 +1,58 @@
+.usersItem
+  transition: 0.6s
+  color: #c4c4c4
+  margin-bottom: 10px
+  padding: 5px
+  background-color: #333333
+  border-radius: 10px
+  cursor: pointer
+  position: relative
+
+  &:hover
+    transition: 0.6s
+    background-color: #393939
+
+    .actions
+      transition: 0.6s
+      display: block
+
+  &.online
+    .photo
+      background-color: #33E164
+      box-shadow: 0 0 10px #33E164
+
+  .photo
+    height: 50px
+    width: 50px
+    border-radius: 50px
+    background-color: #292929
+    position: relative
+
+    img
+      position: absolute
+      top: 2px
+      left: 2px
+      height: 46px
+      width: 46px
+      border-radius: 50px
+      object-fit: cover
+
+  .name
+    position: absolute
+    left: 60px
+    top: 50%
+    transform: translateY(-50%)
+    font:
+      size: 20px
+      weight: lighter
+
+  .actions
+    transition: 0.6s
+    display: none
+    position: absolute
+    right: 5px
+    top: 50%
+    transform: translateY(-50%)
+
+    .action
+      margin-left: 5px

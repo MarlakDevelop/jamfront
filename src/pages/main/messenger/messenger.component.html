@@ -1,0 +1,21 @@
+<div id="MessengerPage">
+  <div class="chatsBar">
+    <app-searchbar></app-searchbar>
+    <app-chats-box></app-chats-box>
+    <app-add-new-btn
+      [text]="'Добавить чат'"
+    ></app-add-new-btn>
+  </div>
+  <div class="chatContainer">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="membersBar">
+    <app-remove-btn
+      [text]="'Выйти из чата'"
+    ></app-remove-btn>
+    <app-members-box></app-members-box>
+    <app-add-new-btn
+      [text]="'Добавить участника'"
+    ></app-add-new-btn>
+  </div>
+</div>

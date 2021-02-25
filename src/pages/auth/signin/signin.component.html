@@ -1,0 +1,19 @@
+<div id="SignInPage">
+  <a [routerLink]="'/auth/signup'" class="backLink">Не имеете аккаунта?</a>
+  <h3>Авторизация</h3>
+  <app-line-input-field
+    [type]="'text'"
+    [control]="form.controls['username']"
+    [placeholder]="'Логин'"
+  ></app-line-input-field>
+  <app-line-input-field
+    [type]="'password'"
+    [control]="form.controls['password']"
+    [placeholder]="'Пароль'"
+  ></app-line-input-field>
+  <app-add-new-btn
+    [disabled]="form.invalid"
+    [type]="'submit'"
+    [text]="'Авторизоваться'"
+  ></app-add-new-btn>
+</div>

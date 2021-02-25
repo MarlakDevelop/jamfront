@@ -1,0 +1,19 @@
+@mixin scrollbars($color: #000000, $width: 4px, $radius: 2px)
+  overflow: auto
+
+  &::-webkit-scrollbar
+    width: $width
+    border-radius: $radius
+
+  &::-webkit-scrollbar-track
+    background: none
+    padding: $width / 2
+
+  &::-webkit-scrollbar-thumb
+    background: $color
+    border-radius: $radius
+
+body
+  margin: 0
+  background-color: #393939
+  overflow: hidden !important

@@ -1,0 +1,49 @@
+.chatMetaBar
+  width: 100%
+  padding: 0 5px
+  height: 60px
+  box-sizing: border-box
+  background-color: #292929
+  position: relative
+
+  .meta
+    position: relative
+    padding-right: 40px
+    height: 60px
+
+    .photo
+      height: 50px
+      width: 50px
+      border-radius: 10px
+      background-color: #292929
+      position: absolute
+      top: 5px
+      left: 0
+
+      img
+        height: 50px
+        width: 50px
+        border-radius: 10px
+        object-fit: cover
+
+    .name
+      position: absolute
+      left: 60px
+      top: 50%
+      transform: translateY(-50%)
+      color: #c4c4c4
+      font:
+        size: 20px
+        weight: normal
+
+  .actions
+    height: 30px
+    transition: 0.6s
+    position: absolute
+    right: 5px
+    top: 50%
+    transform: translateY(-50%)
+
+    .action
+      cursor: pointer
+      margin-left: 5px

@@ -1,0 +1,43 @@
+.messageFieldBox
+  height: 60px
+  width: 100%
+  padding: 0 20px 20px
+  box-sizing: border-box
+
+  .messageField
+    width: auto
+    height: 40px
+    position: relative
+    border-radius: 10px
+    background-color: #444444
+
+    input
+      display: block
+      position: absolute
+      top: 0px
+      left: 5px
+      background: none
+      padding: 5px 5px
+      height: 30px
+      width: calc(100% - 60px)
+      outline: none
+      color: #c4c4c4
+      font:
+        size: 20px
+        weight: lighter
+      border: none
+
+      &::placeholder
+        color: #c4c4c4
+        font:
+          size: 20px
+          weight: lighter
+
+    .sendMessageBtn
+      cursor: pointer
+      display: block
+      width: 30px
+      height: 30px
+      position: absolute
+      top: 5px
+      right: 5px

@@ -1,0 +1,39 @@
+.searchBox
+  height: 60px
+  width: 100%
+  position: relative
+
+  .searchbar
+    border-radius: 10px
+    top: 10px
+    left: 5px
+    width: calc(100% - 10px)
+    height: 40px
+    position: absolute
+    background-color: #292929
+
+    .search
+      position: relative
+
+      input
+        padding: 5px 5px
+        display: block
+        height: 30px
+        width: calc(100% - 40px)
+        outline: none
+        color: #c4c4c4
+        background: none
+        font:
+          size: 20px
+          weight: lighter
+        border: none
+
+        &::placeholder
+          color: #c4c4c4
+          font:
+            size: 20px
+            weight: lighter
+      svg
+        position: absolute
+        top: 8px
+        right: 5px

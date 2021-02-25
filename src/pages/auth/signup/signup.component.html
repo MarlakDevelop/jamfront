@@ -1,0 +1,21 @@
+<div id="SignUpPage">
+  <a [routerLink]="'/auth'" class="backLink">Уже зарегистрированы?</a>
+  <h3>Регистрация</h3>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <app-line-input-field
+      [type]="'text'"
+      [control]="form.controls['username']"
+      [placeholder]="'Логин'"
+    ></app-line-input-field>
+    <app-line-input-field
+      [type]="'password'"
+      [control]="form.controls['password']"
+      [placeholder]="'Пароль'"
+    ></app-line-input-field>
+    <app-add-new-btn
+      [disabled]="form.invalid"
+      [type]="'submit'"
+      [text]="'Зарегистрироваться'"
+    ></app-add-new-btn>
+  </form>
+</div>
