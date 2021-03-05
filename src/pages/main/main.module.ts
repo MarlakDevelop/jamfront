@@ -20,9 +20,9 @@ import { SharedModule } from '../../shared/shared.module';
     ChatComponent
   ],
   imports: [
-    BrowserModule,
-    MainRoutingModule,
-    SharedModule
+      BrowserModule,
+      MainRoutingModule,
+      SharedModule
   ],
   providers: [],
   bootstrap: [MainComponent]

@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../environments/environment';
-import {Observable} from 'rxjs';
-import {Login, Registration} from '../models/auth.model';
-import {tap} from 'rxjs/operators';
-
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
+import { Login, Registration } from '../models/auth.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +18,9 @@ export class AuthService {
     return this.http.post<string>(`${environment.server}${environment.apiVerPath}/users/signin`, model)
       .pipe(
         tap(
-          (token: string) => {
-            this.setToken(token);
-            localStorage.setItem('token', token);
+          (response: any) => {
+            this.setToken(response.user.token);
+            localStorage.setItem('token', response.user.token);
           }
         )
       );

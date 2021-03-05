@@ -8,6 +8,7 @@ import { MainRoutingModule } from '../pages/main/main-routing.module';
 import { AuthModule } from '../pages/auth/auth.module';
 import { AuthRoutingModule } from '../pages/auth/auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SharedModule } from '../shared/shared.module';
     MainModule,
     MainRoutingModule,
     AuthModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 import { EscapeHtmlPipe } from '../pipes/keep-html.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavbarItemComponent } from './components/navbar-item/navbar-item.component';
@@ -23,8 +26,9 @@ import { RemoveBtnComponent } from './components/remove-btn/remove-btn.component
 import { DefaultBtnComponent } from './components/default-btn/default-btn.component';
 import { LoaderRingComponent } from './components/loader-ring/loader-ring.component';
 import { LoaderDualRingComponent } from './components/loader-dual-ring/loader-dual-ring.component';
-import { DefaultPopupComponent } from './components/default-popup/default-popup.component';
-import { BtnPopupComponent } from './components/btn-popup/btn-popup.component';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { TextDialogComponent } from './components/text-dialog/text-dialog.component';
+import { SubmitDialogComponent } from './components/submit-dialog/submit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,15 +51,18 @@ import { BtnPopupComponent } from './components/btn-popup/btn-popup.component';
     DefaultBtnComponent,
     LoaderRingComponent,
     LoaderDualRingComponent,
-    DefaultPopupComponent,
-    BtnPopupComponent
+    ErrorMessageComponent,
+    TextDialogComponent,
+    SubmitDialogComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [],
@@ -82,8 +89,9 @@ import { BtnPopupComponent } from './components/btn-popup/btn-popup.component';
     HttpClientModule,
     RouterModule,
     DefaultBtnComponent,
-    DefaultPopupComponent,
-    BtnPopupComponent
+    ErrorMessageComponent,
+    TextDialogComponent,
+    SubmitDialogComponent
   ]
 })
 export class SharedModule { }

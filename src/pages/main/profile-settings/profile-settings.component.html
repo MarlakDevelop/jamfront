@@ -3,17 +3,41 @@
     <h3>Ваш айди: 2152143123</h3>
     <app-messages-item
     ></app-messages-item>
-    <app-default-btn
-      [text]="'Загрузить аватарку'"
-    ></app-default-btn>
-    <app-line-input-field
-      [placeholder]="'Ваше имя'"
-    ></app-line-input-field>
-    <app-add-new-btn
-      [text]="'Сохранить'"
-    ></app-add-new-btn>
-    <app-remove-btn
-      [text]="'Выйти из аккаунта'"
-    ></app-remove-btn>
+    <form [formGroup]="form">
+      <app-default-btn
+        [text]="'Загрузить аватарку'"
+      ></app-default-btn>
+      <app-line-input-field
+        [type]="'text'"
+        [control]="form.controls['username']"
+        [placeholder]="'Ваше имя'"
+      ></app-line-input-field>
+      <div *ngIf="form.controls['username'].invalid">
+        <app-error-message
+          *ngIf="form.controls['username'].errors?.required"
+          [text]="'Имя необходимо'"
+        ></app-error-message>
+        <app-error-message
+          *ngIf="form.controls['username'].errors?.minlength"
+          [text]="'Минимальная длина имени - 4 символов'"
+        ></app-error-message>
+        <app-error-message
+          *ngIf="form.controls['username'].errors?.maxlength"
+          [text]="'Максимальная длина имени - 32 символа'"
+        ></app-error-message>
+      </div>
+      <app-add-new-btn
+        [disabled]="false"
+        [type]="'submit'"
+        [text]="'Сохранить'"
+      ></app-add-new-btn>
+    </form>
+    <form (ngSubmit)="openLogoutSubmitDialog('Выйти из аккаунта?')">
+      <app-remove-btn
+        [disabled]="false"
+        [type]="'submit'"
+        [text]="'Выйти из аккаунта'"
+      ></app-remove-btn>
+    </form>
   </div>
 </div>

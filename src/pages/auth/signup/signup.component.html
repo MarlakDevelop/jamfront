@@ -5,17 +5,45 @@
     <app-line-input-field
       [type]="'text'"
       [control]="form.controls['username']"
-      [placeholder]="'Логин'"
+      [placeholder]="'Логин(минимум 4 символа и максимум 32)'"
     ></app-line-input-field>
+    <div *ngIf="form.controls['username'].invalid">
+      <app-error-message
+        *ngIf="form.controls['username'].errors?.required"
+        [text]="'Имя необходимо'"
+      ></app-error-message>
+      <app-error-message
+        *ngIf="form.controls['username'].errors?.minlength"
+        [text]="'Минимальная длина имени - 4 символов'"
+      ></app-error-message>
+      <app-error-message
+        *ngIf="form.controls['username'].errors?.maxlength"
+        [text]="'Максимальная длина имени - 32 символа'"
+      ></app-error-message>
+    </div>
     <app-line-input-field
       [type]="'password'"
       [control]="form.controls['password']"
-      [placeholder]="'Пароль'"
+      [placeholder]="'Пароль(минимум 8 символов и максимум 32)'"
     ></app-line-input-field>
+    <div *ngIf="form.controls['password'].invalid">
+      <app-error-message
+        *ngIf="form.controls['password'].errors?.required"
+        [text]="'Пароль необходим'"
+      ></app-error-message>
+      <app-error-message
+        *ngIf="form.controls['password'].errors?.minlength"
+        [text]="'Минимальная длина пароля - 8 символов'"
+      ></app-error-message>
+      <app-error-message
+        *ngIf="form.controls['password'].errors?.maxlength"
+        [text]="'Максимальная длина пароля - 32 символа'"
+      ></app-error-message>
+    </div>
     <app-add-new-btn
       [disabled]="form.invalid"
       [type]="'submit'"
-      [text]="'Зарегистрироваться'"
+      [text]="form.invalid ? 'Ты не можешь регистрироваться' : 'Зарегистрироваться'"
     ></app-add-new-btn>
   </form>
 </div>
