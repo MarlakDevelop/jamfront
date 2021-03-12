@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserAction } from '../../../models/user-action.model';
+import { UserAction } from '@models/user-action.model';
 
 @Component({
   selector: 'app-users-item',

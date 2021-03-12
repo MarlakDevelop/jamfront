@@ -1,12 +1,27 @@
 <div id="ProfileSettingsPage">
   <div class="container">
-    <h3>Ваш айди: 2152143123</h3>
+    <h3>Ваш айди: {{ this.message?.id }}</h3>
     <app-messages-item
+      [name]="form.controls['username'].valid ? form.controls['username'].value : this.message?.username"
+      [image]="form.controls['image'].value ? form.controls['image'].value : this.message?.image"
+      [date]="this.message?.date"
+      [text]="this.message?.text"
     ></app-messages-item>
-    <form [formGroup]="form">
-      <app-default-btn
-        [text]="'Загрузить аватарку'"
-      ></app-default-btn>
+    <form [formGroup]="form" (ngSubmit)="updateDataAboutMe()">
+      <input
+        hidden
+        type="file"
+        accept=".png, .jpg, .jpeg"
+        #avatarUpload
+        (change)="loadAvatar($event)"
+      />
+      <ng-form (click)="avatarUpload.click()">
+        <app-default-btn
+          [disabled]="false"
+          [text]="'Загрузить аватарку'"
+          [type]="'button'"
+        ></app-default-btn>
+      </ng-form>
       <app-line-input-field
         [type]="'text'"
         [control]="form.controls['username']"

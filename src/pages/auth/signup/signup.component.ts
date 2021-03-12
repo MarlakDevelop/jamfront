@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Subscription, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { TextDialogComponent } from '../../../shared/components/text-dialog/text-dialog.component';
+import { TextDialogComponent } from '@components/text-dialog/text-dialog.component';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.sass']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
   form: FormGroup;
   aSub: Subscription;
 
@@ -23,6 +23,13 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    this.form.reset();
+    if (this.aSub) {
+      this.aSub.unsubscribe();
+    }
   }
 
   openDialog(text: string): void {

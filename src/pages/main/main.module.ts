@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { EscapeHtmlPipe } from '../../pipes/keep-html.pipe';
-
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { MessengerComponent } from './messenger/messenger.component';

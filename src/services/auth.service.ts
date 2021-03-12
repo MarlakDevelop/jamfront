@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Observable } from 'rxjs';
-import { Login, Registration } from '../models/auth.model';
+import { Observable, Subscription } from 'rxjs';
+import { Login, Registration } from '@models/auth.model';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -10,6 +10,8 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private token: string | null = !!this.getToken() ? this.getToken() : null;
+  private aSub: Subscription;
+  public isLoggedIn: boolean;
 
   constructor(private http: HttpClient) {
   }
@@ -35,9 +37,9 @@ export class AuthService {
     this.setToken(null);
   }
 
-  isAuth(): boolean {
+  isAuth(): Observable<any> {
     this.setToken(this.getToken());
-    return !!this.token;
+    return this.http.get<any>(`${environment.server}${environment.apiVerPath}/users/me`);
   }
 
   getToken(): string {

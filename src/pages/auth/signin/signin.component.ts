@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {AuthService} from '../../../services/auth.service';
-import {equalValueValidator} from '../../../forms/validators/equal-value.validator';
-import {TextDialogComponent} from '../../../shared/components/text-dialog/text-dialog.component';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AuthService } from '@services/auth.service';
+import { TextDialogComponent } from '@components/text-dialog/text-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 
@@ -13,10 +12,9 @@ import { Router } from '@angular/router';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.sass']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
   form: FormGroup;
   aSub: Subscription;
-  errorRes: object | null = null;
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router) {
     this.form = formBuilder.group({
@@ -29,6 +27,13 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+    this.form.reset();
+    if (this.aSub) {
+      this.aSub.unsubscribe();
+    }
+  }
+
   openDialog(text: string): void {
     this.dialog.open(TextDialogComponent, {
       data: {
@@ -39,7 +44,7 @@ export class SignInComponent implements OnInit {
 
   submit(): void {
     this.aSub = this.authService.signIn(this.form.value).subscribe(
-      res => this.authService.isAuth() ? this.router.navigateByUrl('/messenger') : null,
+      res => { this.router.navigateByUrl('/messenger'); },
       error => this.openDialog('Данные не сходятся')
     );
   }

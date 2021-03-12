@@ -1,7 +1,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
+    "paths": {
+      "@angular/*": [ "../node_modules/@angular/*" ],
+      "@components/*": ["shared/components/*"],
+      "@services/*": ["services/*"],
+      "@pipes/*": ["pipes/*"],
+      "@pages/*": ["pages/*"],
+      "@models/*": ["models/*"]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

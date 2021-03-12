@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Link } from '../../../models/link.model';
+import { Link } from '@models/link.model';
 
 @Component({
   selector: 'app-navbar-item',
