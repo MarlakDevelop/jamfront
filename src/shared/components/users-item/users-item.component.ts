@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { UserAction } from '@models/user-action.model';
 
 @Component({
@@ -6,6 +6,10 @@ import { UserAction } from '@models/user-action.model';
   templateUrl: './users-item.component.html',
   styleUrls: ['./users-item.component.sass']
 })
-export class UsersItemComponent {
+export class UsersItemComponent{
   @Input() userActions: UserAction[];
+  @Input() id: number;
+  @Input() username: string;
+  @Input() image: string;
+  @Input() online: boolean;
 }

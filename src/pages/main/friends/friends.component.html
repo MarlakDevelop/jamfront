@@ -1,63 +1,93 @@
 <div id="FriendsPage">
   <div class="friendShipPart input">
     <h3>Входящие</h3>
-    <app-searchbar></app-searchbar>
+    <app-searchbar (setValue)="this.searchFriendshipOffersToMe = $event; getFriendshipOffersToMe();"></app-searchbar>
     <div class="friendShipList">
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="inputFriendsActions"></app-users-item>
+      <app-users-item
+        *ngFor="let friendshipOffer of friendshipOffersToMe"
+        [id]="friendshipOffer.id"
+        [username]="friendshipOffer.username"
+        [image]="friendshipOffer.image"
+        [online]="friendshipOffer.online"
+        [userActions]="[
+          {
+            icon: this.acceptIcon,
+            action: this.openMakeFriendShipDialog,
+            actionArgs: [
+              friendshipOffer.id,
+              friendshipOffer.username
+            ]
+          }
+        ]"
+      ></app-users-item>
     </div>
   </div>
   <div class="friendShipPart your">
-    <h3>Ваши друзья</h3>
-    <app-searchbar></app-searchbar>
+    <h3>Взаимные</h3>
+    <app-searchbar (setValue)="this.searchFriends = $event; getFriends();"></app-searchbar>
     <div class="friendShipList">
-      <app-users-item [userActions]="yourFriendsActions"></app-users-item>
-      <app-users-item [userActions]="yourFriendsActions"></app-users-item>
-      <app-users-item [userActions]="yourFriendsActions"></app-users-item>
-      <app-users-item [userActions]="yourFriendsActions"></app-users-item>
-      <app-users-item [userActions]="yourFriendsActions"></app-users-item>
-      <app-users-item [userActions]="yourFriendsActions"></app-users-item>
+      <app-users-item
+        *ngFor="let friend of friends"
+        [id]="friend.id"
+        [username]="friend.username"
+        [image]="friend.image"
+        [online]="friend.online"
+        [userActions]="[
+          {
+            icon: this.cancelIcon,
+            action: this.openRemoveFriendShipDialog,
+            actionArgs: [
+              friend.id,
+              friend.username
+            ]
+          }
+        ]"
+      ></app-users-item>
     </div>
   </div>
   <div class="friendShipPart output">
     <h3>Исходящие</h3>
-    <app-searchbar></app-searchbar>
+    <app-searchbar (setValue)="this.searchFriendshipOffersByMe = $event; getFriendshipOffersByMe();"></app-searchbar>
     <div class="friendShipList">
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
-      <app-users-item [userActions]="outputFriendsActions"></app-users-item>
+      <app-users-item
+        *ngFor="let friendshipOffer of friendshipOffersByMe"
+        [id]="friendshipOffer.id"
+        [username]="friendshipOffer.username"
+        [image]="friendshipOffer.image"
+        [online]="friendshipOffer.online"
+        [userActions]="[
+          {
+            icon: this.cancelIcon,
+            action: this.openRemoveFriendShipDialog,
+            actionArgs: [
+              friendshipOffer.id,
+              friendshipOffer.username
+            ]
+          }
+        ]"
+      ></app-users-item>
     </div>
-    <app-new-friendship-form></app-new-friendship-form>
+    <div class="newFriendshipForm">
+      <form [formGroup]="form" (ngSubmit)="sendFriendshipOffer()">
+        <h3>Добавление друга</h3>
+        <app-line-input-field
+          [control]="form.controls['id']"
+          [placeholder]="'Айди друга'"
+          [type]="'text'"
+        ></app-line-input-field>
+        <app-default-btn
+          *ngIf="form.invalid"
+          [disabled]="true"
+          [type]="'button'"
+          [text]="'Поле айди пусто'"
+        ></app-default-btn>
+        <app-add-new-btn
+          *ngIf="form.valid"
+          [disabled]="false"
+          [type]="'submit'"
+          [text]="'Отправить запрос в друзья'"
+        ></app-add-new-btn>
+      </form>
+    </div>
   </div>
 </div>

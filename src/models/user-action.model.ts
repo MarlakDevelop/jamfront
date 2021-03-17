@@ -1,4 +1,5 @@
 export interface UserAction{
   icon: string;
-  action(): void;
+  action: (...kwargs) => any;
+  actionArgs: any[];
 }

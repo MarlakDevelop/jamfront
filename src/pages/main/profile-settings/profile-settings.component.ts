@@ -87,6 +87,7 @@ export class ProfileSettingsComponent implements OnInit, OnDestroy {
         this.form.controls['username'].setValue(this.message.username);
         this.message.text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, deleniti dicta dolor expedita illo natus, praesentium quis quisquam, repellat sit totam velit. A ab aliquid asperiores at beatae commodi culpa cumque deleniti deserunt dignissimos dolore ducimus est eum excepturi expedita illum, inventore labore nemo nesciunt non officiis perferendis quae quod ratione reiciendis repellat rerum suscipit totam ullam, voluptatibus. Accusantium alias amet consequatur corporis, deleniti distinctio dolores, maxime nihil officia quae quas rerum? Eos illum odio officia quos repudiandae. Aspernatur eveniet excepturi id illo illum incidunt laudantium minus possimus, provident quae quibusdam quisquam sed ullam? Illum ipsa nemo porro possimus vero.';
         this.message.date = new Date();
+        this.openDialog('Поздравляю! Информация сохранена');
       },
       err => this.openDialog('Имя пользователя занято или ваша новая ава настолько большая, что не уместилась на сервере')
     );
