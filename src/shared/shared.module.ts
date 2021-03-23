@@ -32,6 +32,7 @@ import { LoaderDualRingComponent } from '@components/loader-dual-ring/loader-dua
 import { ErrorMessageComponent } from '@components/error-message/error-message.component';
 import { TextDialogComponent } from '@components/text-dialog/text-dialog.component';
 import { SubmitDialogComponent } from '@components/submit-dialog/submit-dialog.component';
+import { ChatDialogComponent } from '@components/chat-dialog/chat-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { SubmitDialogComponent } from '@components/submit-dialog/submit-dialog.c
     LoaderDualRingComponent,
     ErrorMessageComponent,
     TextDialogComponent,
-    SubmitDialogComponent
+    SubmitDialogComponent,
+    ChatDialogComponent
   ],
   imports: [
     CommonModule,
@@ -102,7 +104,8 @@ import { SubmitDialogComponent } from '@components/submit-dialog/submit-dialog.c
     DefaultBtnComponent,
     ErrorMessageComponent,
     TextDialogComponent,
-    SubmitDialogComponent
+    SubmitDialogComponent,
+    ChatDialogComponent
   ]
 })
 export class SharedModule { }

@@ -1,17 +1,19 @@
 <div class="membersBox">
   <app-users-item
-    [userActions]="userActions"
-  ></app-users-item>
-  <app-users-item
-    [userActions]="userActions"
-  ></app-users-item>
-  <app-users-item
-    [userActions]="userActions"
-  ></app-users-item>
-  <app-users-item
-    [userActions]="userActions"
-  ></app-users-item>
-  <app-users-item
-    [userActions]="userActions"
+    *ngFor="let member of members"
+    [id]="member.id"
+    [username]="member.username"
+    [image]="member.image"
+    [online]="member.online"
+    [userActions]="this.isOwner ? [
+          {
+            icon: this.cancelIcon,
+            action: openDeleteMemberDialog,
+            actionArgs: [
+              member.id,
+              member.username
+            ]
+          }
+        ] : []"
   ></app-users-item>
 </div>

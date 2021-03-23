@@ -1,12 +1,10 @@
 <div class="chatsBox">
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
-  <app-chats-item></app-chats-item>
+  <app-chats-item
+    *ngFor="let chat of chats"
+    [linkIsActive]="true"
+    [id]="chat.id"
+    [name]="chat.name"
+    [image]="chat.image"
+    [date]="chat.last_message_date"
+  ></app-chats-item>
 </div>

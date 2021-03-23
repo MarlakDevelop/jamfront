@@ -1,11 +1,24 @@
-<div [routerLink]="'/messenger/chats/1'" class="chatsItem">
+<div *ngIf="linkIsActive" [routerLink]="linkToChat" class="chatsItem">
   <div class="photo">
     <img
-      src="https://picsum.photos/500/300"
+      *ngIf="image"
+      [src]="image"
       width="50"
       height="50"
     >
   </div>
-  <div class="name">89-ый сквад</div>
-  <div class="date">23:54</div>
+  <div class="name">{{ name }}</div>
+  <div class="date">{{ date | date : 'HH:mm - dd.MM.yyyy' : timeZone }}</div>
+</div>
+<div *ngIf="!linkIsActive" class="chatsItem">
+  <div class="photo">
+    <img
+      *ngIf="image"
+      [src]="image"
+      width="50"
+      height="50"
+    >
+  </div>
+  <div class="name">{{ name }}</div>
+  <div class="date">{{ date | date : 'HH:mm - dd.MM.yyyy' : timeZone }}</div>
 </div>

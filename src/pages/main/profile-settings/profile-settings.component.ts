@@ -79,7 +79,6 @@ export class ProfileSettingsComponent implements OnInit, OnDestroy {
   }
 
   updateDataAboutMe(): void {
-    console.log(this.form.value);
     this.aSub = this.profileSettingsService.updateMe(this.form.value).subscribe(
       res => {
         this.form.controls['image'].setValue('');

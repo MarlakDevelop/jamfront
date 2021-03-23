@@ -1,0 +1,49 @@
+<mat-dialog-content>
+  <div class="chatFormContainer">
+    <h2>{{ data.title }}</h2>
+    <app-chats-item
+      [name]="form.controls['name'].valid ? form.controls['name'].value: data.name"
+      [image]="form.controls['image'].value ? form.controls['image'].value : data.image"
+      [date]="date"
+    ></app-chats-item>
+    <form [formGroup]="form">
+      <input
+        hidden
+        type="file"
+        accept=".png, .jpg, .jpeg"
+        #imageUpload
+        (change)="loadImage($event)"
+      />
+      <ng-form (click)="imageUpload.click()">
+        <app-default-btn
+          [disabled]="false"
+          [text]="'Загрузить изображение чата'"
+          [type]="'button'"
+        ></app-default-btn>
+      </ng-form>
+      <app-line-input-field
+        [type]="'text'"
+        [control]="form.controls['name']"
+        [placeholder]="'Имя чата'"
+      ></app-line-input-field>
+      <div *ngIf="form.controls['name'].invalid">
+        <app-error-message
+          *ngIf="form.controls['name'].errors?.required"
+          [text]="'Имя чата необходимо'"
+        ></app-error-message>
+        <app-error-message
+          *ngIf="form.controls['name'].errors?.minlength"
+          [text]="'Минимальная длина названия чата - 4 символов'"
+        ></app-error-message>
+        <app-error-message
+          *ngIf="form.controls['name'].errors?.maxlength"
+          [text]="'Максимальная длина названия чата - 32 символа'"
+        ></app-error-message>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">{{ data.buttonSubmitText }}</button>
+  <button mat-button mat-dialog-close>{{ data.buttonDoNothingText }}</button>
+</mat-dialog-actions>

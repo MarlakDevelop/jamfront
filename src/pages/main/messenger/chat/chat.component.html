@@ -1,5 +1,29 @@
 <div id="ChatPage">
-  <app-chat-meta-bar></app-chat-meta-bar>
-  <app-messages-box></app-messages-box>
-  <app-message-field-box></app-message-field-box>
+  <div class="chatContainer">
+    <app-chat-meta-bar
+      [id]="chat?.id"
+      [name]="chat?.name"
+      [image]="chat?.image"
+      [isOwner]="chat?.is_owner"
+    ></app-chat-meta-bar>
+    <app-messages-box></app-messages-box>
+    <app-message-field-box></app-message-field-box>
+  </div>
+  <div class="membersBar">
+    <ng-form (click)="this.openLeaveSubmitDialog('Выйти из чата?')">
+      <app-remove-btn
+        [disabled]="false"
+        [type]="'button'"
+        [text]="'Выйти из чата'"
+      ></app-remove-btn>
+    </ng-form>
+    <app-members-box
+      [members]="this.members"
+      [isOwner]="this.chat?.is_owner"
+      [openDeleteMemberDialog]="openDeleteMemberDialog"
+    ></app-members-box>
+    <app-add-new-btn
+      [text]="'Добавить участника'"
+    ></app-add-new-btn>
+  </div>
 </div>

@@ -1,7 +1,9 @@
 <div id="FriendsPage">
   <div class="friendShipPart input">
     <h3>Входящие</h3>
-    <app-searchbar (setValue)="this.searchFriendshipOffersToMe = $event; getFriendshipOffersToMe();"></app-searchbar>
+    <app-searchbar
+      (setValue)="this.searchFriendshipOffersToMe = $event; getFriendshipOffersToMe();"
+    ></app-searchbar>
     <div class="friendShipList">
       <app-users-item
         *ngFor="let friendshipOffer of friendshipOffersToMe"
@@ -24,7 +26,9 @@
   </div>
   <div class="friendShipPart your">
     <h3>Взаимные</h3>
-    <app-searchbar (setValue)="this.searchFriends = $event; getFriends();"></app-searchbar>
+    <app-searchbar
+      (setValue)="this.searchFriends = $event; getFriends();"
+    ></app-searchbar>
     <div class="friendShipList">
       <app-users-item
         *ngFor="let friend of friends"
@@ -47,7 +51,9 @@
   </div>
   <div class="friendShipPart output">
     <h3>Исходящие</h3>
-    <app-searchbar (setValue)="this.searchFriendshipOffersByMe = $event; getFriendshipOffersByMe();"></app-searchbar>
+    <app-searchbar
+      (setValue)="this.searchFriendshipOffersByMe = $event; getFriendshipOffersByMe();"
+    ></app-searchbar>
     <div class="friendShipList">
       <app-users-item
         *ngFor="let friendshipOffer of friendshipOffersByMe"

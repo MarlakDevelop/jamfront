@@ -11,7 +11,7 @@
     {{ name }}
   </div>
   <div class="date">
-    {{ date | date : 'hh:mm - dd.MM.yyyy' }}
+    {{ date | date : 'HH:mm - dd.MM.yyyy' : timeZone }}
   </div>
   <div class="text">
     {{ text }}
