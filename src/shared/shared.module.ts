@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import {AddMembersDialogComponent} from '@components/add-members-dialog/add-members-dialog.component';
 import { AuthInterceptor } from '@services/auth.interceptor';
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -58,7 +59,8 @@ import { ChatDialogComponent } from '@components/chat-dialog/chat-dialog.compone
     ErrorMessageComponent,
     TextDialogComponent,
     SubmitDialogComponent,
-    ChatDialogComponent
+    ChatDialogComponent,
+    AddMembersDialogComponent
   ],
   imports: [
     CommonModule,
@@ -105,7 +107,8 @@ import { ChatDialogComponent } from '@components/chat-dialog/chat-dialog.compone
     ErrorMessageComponent,
     TextDialogComponent,
     SubmitDialogComponent,
-    ChatDialogComponent
+    ChatDialogComponent,
+    AddMembersDialogComponent
   ]
 })
 export class SharedModule { }

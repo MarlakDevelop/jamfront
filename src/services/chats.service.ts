@@ -34,4 +34,12 @@ export class ChatsService {
   getMembers(id: number): Observable<any> {
     return this.http.get<any>(`${environment.server}${environment.apiVerPath}/chat/${id}/members`);
   }
+
+  addMember(chatId: number, userId: number): Observable<any> {
+    return this.http.post<any>(`${environment.server}${environment.apiVerPath}/chat/${chatId}/add_member/${userId}`, {});
+  }
+
+  removeMember(chatId: number, userId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.server}${environment.apiVerPath}/chat/${chatId}/remove_member/${userId}`);
+  }
 }

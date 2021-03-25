@@ -22,8 +22,11 @@
       [isOwner]="this.chat?.is_owner"
       [openDeleteMemberDialog]="openDeleteMemberDialog"
     ></app-members-box>
-    <app-add-new-btn
-      [text]="'Добавить участника'"
-    ></app-add-new-btn>
+    <ng-form (click)="openAddMemberDialog()">
+      <app-add-new-btn
+        [type]="'button'"
+        [text]="'Добавить участника'"
+      ></app-add-new-btn>
+    </ng-form>
   </div>
 </div>

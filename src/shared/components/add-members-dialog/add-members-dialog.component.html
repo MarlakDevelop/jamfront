@@ -1,5 +1,26 @@
 <mat-dialog-content>
+  <h2>Добавьте друга в чат</h2>
+  <app-searchbar
+    (setValue)="this.searchFriends = $event; getFriends();"
+  ></app-searchbar>
   <div class="addMembersFormContainer">
+    <app-users-item
+      *ngFor="let friend of this.friends"
+      [id]="friend.id"
+      [username]="friend.username"
+      [image]="friend.image"
+      [online]="friend.online"
+      [userActions]="[
+        {
+          icon: this.acceptIcon,
+          action: addMember,
+          actionArgs: [
+            friend.id,
+            friend.username
+          ]
+        }
+      ]"
+    ></app-users-item>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
