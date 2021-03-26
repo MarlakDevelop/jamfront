@@ -42,4 +42,8 @@ export class ChatsService {
   removeMember(chatId: number, userId: number): Observable<any> {
     return this.http.delete<any>(`${environment.server}${environment.apiVerPath}/chat/${chatId}/remove_member/${userId}`);
   }
+
+  getMessages(chatId: number, idFrom: number | null, offset: number, limit: number): Observable<any>{
+    return this.http.get<any>(`${environment.server}${environment.apiVerPath}/chat/${chatId}/messages?id_from=${idFrom ? idFrom : 0}&limit=${limit}&offset=${offset}`);
+  }
 }

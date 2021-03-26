@@ -10,6 +10,7 @@ export class MessagesItemComponent implements OnInit {
   @Input() name: string;
   @Input() date: Date;
   @Input() text: string;
+  @Input() flex = false;
   timeZone: string;
 
   ngOnInit() {

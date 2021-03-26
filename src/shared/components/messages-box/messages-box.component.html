@@ -1,7 +1,13 @@
-<div class="messagesBox" #scrollFromBottom [scrollTop]="scrollFromBottom.scrollHeight">
-  <app-loader-ring></app-loader-ring>
-  <app-messages-item></app-messages-item>
-  <app-messages-item></app-messages-item>
-  <app-messages-item></app-messages-item>
-  <app-messages-item></app-messages-item>
+<div (scroll)="messagesBoxScroll($event)" class="messagesBox">
+  <app-messages-item
+    *ngFor="let message of messages"
+    [name]="message?.username"
+    [image]="message?.image"
+    [date]="message?.date"
+    [text]="message?.text"
+    [flex]="flex"
+  ></app-messages-item>
+  <app-loader-ring
+    *ngIf="isLoading"
+  ></app-loader-ring>
 </div>

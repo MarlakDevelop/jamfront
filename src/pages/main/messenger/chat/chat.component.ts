@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AddMembersDialogComponent } from '@components/add-members-dialog/add-members-dialog.component';
+import { MessagesBoxComponent } from '@components/messages-box/messages-box.component';
 import { SubmitDialogComponent } from '@components/submit-dialog/submit-dialog.component';
 import { TextDialogComponent } from '@components/text-dialog/text-dialog.component';
 import { ChatDetailModel, MessageModel } from '@models/chats.model';
@@ -15,6 +16,7 @@ export interface MessagesConfig {
   idFrom: number | null;
   offset: number;
   limit: number;
+  loading: boolean;
   isFinished: boolean;
 }
 
@@ -25,12 +27,13 @@ export interface MessagesConfig {
 })
 
 export class ChatComponent implements OnInit, OnDestroy {
+  @ViewChild(MessagesBoxComponent) messagesBoxComponent: MessagesBoxComponent;
   aSub: Subscription;
   navSub: Subscription;
   messagesConfig: MessagesConfig;
   chat: ChatDetailModel;
   messages: MessageModel[];
-  members: UserModel[];
+  members: UserModel[] = [];
 
   constructor(
     private chatsService: ChatsService,
@@ -42,15 +45,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.navSub = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         this.getChat();
-        this.messages = [];
-        this.members = [];
-        this.getMembers();
         this.messagesConfig = {
           idFrom: null,
           offset: 0,
           limit: 20,
+          loading: false,
           isFinished: false
         };
+        this.messages = [];
+        this.loadMessages();
+        this.members = [];
+        this.getMembers();
       }
     });
   }
@@ -91,6 +96,43 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.chat = res.chat;
       },
       err => this.router.navigateByUrl('/messenger')
+    );
+  }
+
+  loadMessages(): void {
+    if (this.messagesConfig.isFinished || this.messagesConfig.loading) {
+      return null;
+    }
+    this.messagesConfig.loading = true;
+    this.aSub = this.chatsService.getMessages(
+      +this.route.snapshot.paramMap.get('id'),
+      this.messagesConfig.idFrom,
+      this.messagesConfig.offset,
+      this.messagesConfig.limit
+    ).subscribe(
+      res => {
+        if (res.messages.length < this.messagesConfig.limit){
+          this.messagesConfig.isFinished = true;
+        }
+        if (this.messagesConfig.idFrom === null && !!res.count) {
+          this.messagesConfig.idFrom = res.messages[0].message.id;
+        }
+        this.messagesConfig.offset += this.messagesConfig.limit;
+        this.messagesConfig.loading = false;
+        this.messages.push(...res.messages.map(message => {
+          return {
+            id: message.message.id,
+            username: message.message.author.user.username,
+            image: message.message.author.user.image,
+            text: message.message.text,
+            date: message.message.date_created
+          };
+        }));
+        this.messagesBoxComponent.updateFlexBox();
+      },
+      err => {
+        this.messagesConfig.isFinished = true;
+      }
     );
   }
 
