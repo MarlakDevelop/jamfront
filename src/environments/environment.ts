@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   server: 'http://127.0.0.1:5000',
-  apiVerPath: '/api/v1'
+  apiVerPath: '/api/v1',
+  socketServer: 'ws://127.0.0.1:5000'
 };
 
 /*

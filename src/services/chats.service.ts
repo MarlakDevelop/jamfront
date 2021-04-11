@@ -46,4 +46,8 @@ export class ChatsService {
   getMessages(chatId: number, idFrom: number | null, offset: number, limit: number): Observable<any>{
     return this.http.get<any>(`${environment.server}${environment.apiVerPath}/chat/${chatId}/messages?id_from=${idFrom ? idFrom : 0}&limit=${limit}&offset=${offset}`);
   }
+
+  sendMessage(chatId: number, text: string): Observable<any>{
+    return this.http.post<any>(`${environment.server}${environment.apiVerPath}/chat/${chatId}/send_message/`, {text});
+  }
 }

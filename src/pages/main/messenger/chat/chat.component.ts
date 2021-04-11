@@ -9,6 +9,7 @@ import { ChatDetailModel, MessageModel } from '@models/chats.model';
 import { UserModel } from '@models/user.model';
 import { ChatsService } from '@services/chats.service';
 import { FriendsService } from '@services/friends.service';
+import {SocketService} from '@services/socket.service';
 import { Subscription } from 'rxjs';
 
 
@@ -40,7 +41,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private friendsService: FriendsService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private socketService: SocketService
   ) {
     this.navSub = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
@@ -61,6 +63,32 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.socketService.onChatNewMessage(+this.route.snapshot.paramMap.get('id')).subscribe(
+      res => {
+        this.messages = this.messages.reverse();
+        this.messages.push({
+          id: res.data.message.id,
+          username: res.data.message.author.user.username,
+          image: res.data.message.author.user.image,
+          text: res.data.message.text,
+          date: res.data.message.date_created
+        });
+        this.messages = this.messages.reverse();
+        this.messagesBoxComponent.updateFlexBox();
+      },
+      err => {}
+    );
+    this.socketService.onChatMembersUpdate(+this.route.snapshot.paramMap.get('id')).subscribe(
+      res1 => {
+        this.aSub = this.chatsService.getMembers(+this.route.snapshot.paramMap.get('id')).subscribe(
+          res => {
+            this.members = res.members.map(member => member.member.member.user);
+          },
+          err => this.router.navigateByUrl('/messenger')
+        );
+      },
+      err1 => {}
+    );
   }
 
   ngOnDestroy() {
@@ -70,6 +98,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.navSub){
       this.navSub.unsubscribe();
     }
+  }
+
+  openDialog(text: string): void {
+    this.dialog.open(TextDialogComponent, {
+      data: {
+        text
+      }
+    });
   }
 
   openLeaveSubmitDialog(text: string): void {
@@ -136,6 +172,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
   }
 
+  sendMessage(text) {
+    this.chatsService.sendMessage(this.chat.id, text).subscribe(
+      res => {},
+      err => {
+        this.openDialog('Не получилось отправить сообщение');
+      }
+    );
+  }
+
   getMembers() {
     this.aSub = this.chatsService.getMembers(+this.route.snapshot.paramMap.get('id')).subscribe(
       res => {
@@ -153,10 +198,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.chatsService.removeMember(this.chat.id, id).subscribe(
-        res => {
-          this.router.navigateByUrl(`/`);
-          this.router.navigateByUrl(`/messenger/chats/${this.chat.id}`);
-        },
+        res => {},
         err => this.dialog.open(TextDialogComponent, {
           data: {
             text: 'Ошибка! Не получилось удалить пользователя из чата!'
@@ -174,10 +216,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.chatsService.addMember(this.chat.id, result.id).subscribe(
-        res => {
-          this.router.navigateByUrl(`/`);
-          this.router.navigateByUrl(`/messenger/chats/${this.chat.id}`);
-        },
+        res => {},
         err => this.dialog.open(TextDialogComponent, {
           data: {
             text: `Ошибка! Не получилось добавить в ${result.username} чат!`

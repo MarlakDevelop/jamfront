@@ -34,6 +34,7 @@ import { ErrorMessageComponent } from '@components/error-message/error-message.c
 import { TextDialogComponent } from '@components/text-dialog/text-dialog.component';
 import { SubmitDialogComponent } from '@components/submit-dialog/submit-dialog.component';
 import { ChatDialogComponent } from '@components/chat-dialog/chat-dialog.component';
+import { SocketService } from '@services/socket.service';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ChatDialogComponent } from '@components/chat-dialog/chat-dialog.compone
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    SocketService
   ],
   bootstrap: [],
   exports: [

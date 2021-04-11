@@ -11,7 +11,9 @@
       [isLoading]="messagesConfig?.loading"
       (scrollBottomEvent)="loadMessages()"
     ></app-messages-box>
-    <app-message-field-box></app-message-field-box>
+    <app-message-field-box
+      (setValue)="sendMessage($event)"
+    ></app-message-field-box>
   </div>
   <div class="membersBar">
     <ng-form (click)="this.openLeaveSubmitDialog('Выйти из чата?')">
