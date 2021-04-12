@@ -48,6 +48,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) {
     this.navSub = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
+        if (this.onChatNewMessageSocketSub){
+          this.onChatNewMessageSocketSub.unsubscribe();
+        }
+        if (this.onChatMembersUpdateSocketSub){
+          this.onChatMembersUpdateSocketSub.unsubscribe();
+        }
         this.getChat();
         this.messagesConfig = {
           idFrom: null,
