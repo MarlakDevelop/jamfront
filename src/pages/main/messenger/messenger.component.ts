@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 export class MessengerComponent implements OnInit, OnDestroy {
   aSub: Subscription;
   chats: ChatShortModel[];
+  onChatsUpdateSocketSub: Subscription;
   searchChats = '';
 
   constructor(private dialog: MatDialog, private chatsService: ChatsService,
@@ -26,9 +27,9 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadChats();
-    this.authService.isAuth().subscribe(
+    this.aSub = this.authService.isAuth().subscribe(
       res => {
-        this.socketService.onChatsUpdate(res.user.id).subscribe(
+        this.onChatsUpdateSocketSub = this.socketService.onChatsUpdate(res.user.id).subscribe(
           res1 => {
             this.loadChats();
           },
@@ -42,6 +43,9 @@ export class MessengerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.aSub){
       this.aSub.unsubscribe();
+    }
+    if (this.onChatsUpdateSocketSub){
+      this.onChatsUpdateSocketSub.unsubscribe();
     }
   }
 

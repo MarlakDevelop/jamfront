@@ -31,6 +31,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild(MessagesBoxComponent) messagesBoxComponent: MessagesBoxComponent;
   aSub: Subscription;
   navSub: Subscription;
+  onChatNewMessageSocketSub: Subscription;
+  onChatMembersUpdateSocketSub: Subscription;
   messagesConfig: MessagesConfig;
   chat: ChatDetailModel;
   messages: MessageModel[];
@@ -58,12 +60,38 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.loadMessages();
         this.members = [];
         this.getMembers();
+        this.onChatNewMessageSocketSub = this.socketService.onChatNewMessage(+this.route.snapshot.paramMap.get('id')).subscribe(
+          res => {
+            this.messages = this.messages.reverse();
+            this.messages.push({
+              id: res.data.message.id,
+              username: res.data.message.author.user.username,
+              image: res.data.message.author.user.image,
+              text: res.data.message.text,
+              date: res.data.message.date_created
+            });
+            this.messages = this.messages.reverse();
+            this.messagesBoxComponent.updateFlexBox();
+          },
+          err => {}
+        );
+        this.onChatMembersUpdateSocketSub = this.socketService.onChatMembersUpdate(+this.route.snapshot.paramMap.get('id')).subscribe(
+          res1 => {
+            this.aSub = this.chatsService.getMembers(+this.route.snapshot.paramMap.get('id')).subscribe(
+              res => {
+                this.members = res.members.map(member => member.member.member.user);
+              },
+              err => this.router.navigateByUrl('/messenger')
+            );
+          },
+          err1 => {}
+        );
       }
     });
   }
 
   ngOnInit() {
-    this.socketService.onChatNewMessage(+this.route.snapshot.paramMap.get('id')).subscribe(
+    this.onChatNewMessageSocketSub = this.socketService.onChatNewMessage(+this.route.snapshot.paramMap.get('id')).subscribe(
       res => {
         this.messages = this.messages.reverse();
         this.messages.push({
@@ -78,7 +106,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       },
       err => {}
     );
-    this.socketService.onChatMembersUpdate(+this.route.snapshot.paramMap.get('id')).subscribe(
+    this.onChatMembersUpdateSocketSub = this.socketService.onChatMembersUpdate(+this.route.snapshot.paramMap.get('id')).subscribe(
       res1 => {
         this.aSub = this.chatsService.getMembers(+this.route.snapshot.paramMap.get('id')).subscribe(
           res => {
@@ -97,6 +125,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     if (this.navSub){
       this.navSub.unsubscribe();
+    }
+    if (this.onChatNewMessageSocketSub){
+      this.onChatNewMessageSocketSub.unsubscribe();
+    }
+    if (this.onChatMembersUpdateSocketSub){
+      this.onChatMembersUpdateSocketSub.unsubscribe();
     }
   }
 

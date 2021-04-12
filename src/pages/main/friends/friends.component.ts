@@ -20,6 +20,7 @@ import { debounceTime } from 'rxjs/operators';
 export class FriendsComponent implements OnInit, OnDestroy {
   form: FormGroup;
   aSub: Subscription;
+  onFriendshipUpdateSocketSub: Subscription;
   friendshipOffersToMe: UserModel[];
   friends: UserModel[];
   friendshipOffersByMe: UserModel[];
@@ -44,7 +45,7 @@ export class FriendsComponent implements OnInit, OnDestroy {
     this.getFriends();
     this.getFriendshipOffersByMe();
     this.getFriendshipOffersToMe();
-    this.authService.isAuth().subscribe(
+    this.aSub = this.authService.isAuth().subscribe(
       res => {
         this.socketService.onFriendshipUpdate(res.user.id).subscribe(
           res1 => {
@@ -62,6 +63,9 @@ export class FriendsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.aSub) {
       this.aSub.unsubscribe();
+    }
+    if (this.onFriendshipUpdateSocketSub) {
+      this.onFriendshipUpdateSocketSub.unsubscribe();
     }
   }
 

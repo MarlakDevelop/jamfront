@@ -1,6 +1,6 @@
-import {query} from '@angular/animations';
+import { query } from '@angular/animations';
 import { Injectable } from '@angular/core';
-import {AuthService} from '@services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Observable, Observer } from 'rxjs';
 import { environment } from '../environments/environment';
 import io from 'socket.io-client';
