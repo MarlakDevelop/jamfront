@@ -13,10 +13,7 @@ export class SocketService {
   constructor(public authService: AuthService) {}
 
   public initSocket(): void {
-    this.socket = io(environment.socketServer, {
-        token: this.authService.getToken()
-      }
-    );
+    this.socket = io(environment.socketServer);
   }
 
   public send(message): void {
