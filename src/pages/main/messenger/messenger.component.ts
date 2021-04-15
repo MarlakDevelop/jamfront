@@ -29,12 +29,15 @@ export class MessengerComponent implements OnInit, OnDestroy {
     this.loadChats();
     this.aSub = this.authService.isAuth().subscribe(
       res => {
-        this.onChatsUpdateSocketSub = this.socketService.onChatsUpdate(res.user.id).subscribe(
-          res1 => {
-            this.loadChats();
-          },
-          err1 => {}
-        );
+        if (!this.onChatsUpdateSocketSub) {
+          this.onChatsUpdateSocketSub = this.socketService.onChatsUpdate(res.user.id).subscribe(
+            res1 => {
+              this.loadChats();
+            },
+            err1 => {
+            }
+          );
+        }
       },
       err => {}
     );

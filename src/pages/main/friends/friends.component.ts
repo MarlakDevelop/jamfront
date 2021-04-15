@@ -47,14 +47,16 @@ export class FriendsComponent implements OnInit, OnDestroy {
     this.getFriendshipOffersToMe();
     this.aSub = this.authService.isAuth().subscribe(
       res => {
-        this.socketService.onFriendshipUpdate(res.user.id).subscribe(
-          res1 => {
-            this.getFriends();
-            this.getFriendshipOffersByMe();
-            this.getFriendshipOffersToMe();
-          },
-          err1 => {}
-        );
+        if (!this.onFriendshipUpdateSocketSub) {
+          this.onFriendshipUpdateSocketSub = this.socketService.onFriendshipUpdate(res.user.id).subscribe(
+            res1 => {
+              this.getFriends();
+              this.getFriendshipOffersByMe();
+              this.getFriendshipOffersToMe();
+            },
+            err1 => {}
+          );
+        }
       },
       err => {}
     );
