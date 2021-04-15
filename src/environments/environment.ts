@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server: 'https://jambackend.herokuapp.com',
+  server: 'http://127.0.0.1:5000',
   apiVerPath: '/api/v1',
   socketServer: 'ws://127.0.0.1:5000'
 };

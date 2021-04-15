@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  server: 'http://127.0.0.1:8000'
+  server: 'https://jambackend.herokuapp.com',
+  apiVerPath: '/api/v1',
+  socketServer: 'wss://jambackend.herokuapp.com'
 };
