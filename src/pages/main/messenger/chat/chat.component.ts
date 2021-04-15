@@ -131,38 +131,34 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!this.onChatNewMessageSocketSub) {
-      this.onChatNewMessageSocketSub = this.socketService.onChatNewMessage(+this.route.snapshot.paramMap.get('id')).subscribe(
-        res => {
-          this.messages = this.messages.reverse();
-          this.messages.push({
-            id: res.data.message.id,
-            username: res.data.message.author.user.username,
-            image: res.data.message.author.user.image,
-            text: res.data.message.text,
-            date: res.data.message.date_created
-          });
-          this.messages = this.messages.reverse();
-          this.messagesBoxComponent.updateFlexBox();
-        },
-        err => {
-        }
-      );
-    }
-    if (!this.onChatMembersUpdateSocketSub) {
-      this.onChatMembersUpdateSocketSub = this.socketService.onChatMembersUpdate(+this.route.snapshot.paramMap.get('id')).subscribe(
-        res1 => {
-          this.aSub = this.chatsService.getMembers(+this.route.snapshot.paramMap.get('id')).subscribe(
-            res => {
-              this.members = res.members.map(member => member.member.member.user);
-            },
-            err => this.router.navigateByUrl('/messenger')
-          );
-        },
-        err1 => {
-        }
-      );
-    }
+    this.onChatNewMessageSocketSub = this.socketService.onChatNewMessage(+this.route.snapshot.paramMap.get('id')).subscribe(
+      res => {
+        this.messages = this.messages.reverse();
+        this.messages.push({
+          id: res.data.message.id,
+          username: res.data.message.author.user.username,
+          image: res.data.message.author.user.image,
+          text: res.data.message.text,
+          date: res.data.message.date_created
+        });
+        this.messages = this.messages.reverse();
+        this.messagesBoxComponent.updateFlexBox();
+      },
+      err => {
+      }
+    );
+    this.onChatMembersUpdateSocketSub = this.socketService.onChatMembersUpdate(+this.route.snapshot.paramMap.get('id')).subscribe(
+      res1 => {
+        this.aSub = this.chatsService.getMembers(+this.route.snapshot.paramMap.get('id')).subscribe(
+          res => {
+            this.members = res.members.map(member => member.member.member.user);
+          },
+          err => this.router.navigateByUrl('/messenger')
+        );
+      },
+      err1 => {
+      }
+    );
   }
 
   ngOnDestroy() {
